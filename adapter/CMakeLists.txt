@@ -10,6 +10,7 @@ target_link_libraries(sil-kit-adapter-qemu
         Utility
         ChardevSocketToPubSubAdapter
         EthSocketToEthControllerAdapter
+        ChardevSocketToLinAdapter
         asio
         SilKit::SilKit
 )

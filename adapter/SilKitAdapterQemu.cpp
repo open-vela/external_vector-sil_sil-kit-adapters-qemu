@@ -12,8 +12,10 @@
 #include "Exceptions.hpp"
 #include "Parsing.hpp"
 #include "SignalHandler.hpp"
-#include "../chardev/adapter/ChardevSocketToPubSubAdapter.hpp"
-#include "../eth/adapter/EthSocketToEthControllerAdapter.hpp"
+#include "chardev/adapter/ChardevSocketToPubSubAdapter.hpp"
+#include "chardev/Utility/StringUtils.hpp"
+#include "eth/adapter/EthSocketToEthControllerAdapter.hpp"
+#include "lin/adapter/ChardevSocketToLinAdapter.hpp"
 
 #include "silkit/SilKit.hpp"
 #include "silkit/config/all.hpp"
@@ -21,10 +23,9 @@
 #include "silkit/services/logging/all.hpp"
 #include "silkit/util/serdes/Serialization.hpp"
 
-#include "../chardev/Utility/StringUtils.hpp"
-
 using namespace adapters;
 using namespace adapters::chardev;
+using namespace adapters::lin;
 using namespace adapters::ethernet;
 using namespace std::chrono_literals;
 using namespace SilKit::Services::Orchestration;
@@ -121,11 +122,16 @@ int main(int argc, char** argv)
                 }
             });
 
-        std::vector<ChardevSocketToPubSubAdapter*> chardevSocketTransmitters;
-
         //set to ensure the provided sockets are unique (text-based)
         std::set<std::string> alreadyProvidedSockets;
-
+        std::vector<ChardevSocketToLinAdapter*> chardevSocketToLinTransmitters;
+        foreachArgDo(argc, argv, linArg, [&](char* arg) -> void {
+            ++numberOfRequestedAdaptations;
+            chardevSocketToLinTransmitters.push_back(parseChardevSocketToLinArgument(arg, alreadyProvidedSockets, participantName,
+                                                                           ioContext, participant, logger));
+        });
+        
+        std::vector<ChardevSocketToPubSubAdapter*> chardevSocketTransmitters;
         foreachArgDo(argc, argv, chardevArg, [&](char* arg) -> void {
             ++numberOfRequestedAdaptations;
             chardevSocketTransmitters.push_back(parseChardevSocketArgument(arg, alreadyProvidedSockets, participantName,

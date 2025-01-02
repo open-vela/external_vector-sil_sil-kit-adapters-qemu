@@ -91,6 +91,11 @@ extern const std::string ethArg;
 extern const std::string chardevArg;
 
 /// <summary>
+/// string containing the argument preceding serial lin adaptation information.
+/// </summary>
+extern const std::string linArg;
+
+/// <summary>
 /// string containing the argument preceding the URI to the SIL Kit registry.
 /// </summary>
 extern const std::string regUriArg;

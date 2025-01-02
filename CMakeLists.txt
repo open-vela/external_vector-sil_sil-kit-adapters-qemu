@@ -104,6 +104,9 @@ add_subdirectory(eth/demos)
 add_subdirectory(chardev/adapter)
 add_subdirectory(chardev/demos)
 
+add_subdirectory(lin/adapter)
+add_subdirectory(lin/demos/EchoDevice)
+
 ################################################################################
 # Distribution of the source code and binaries
 ################################################################################

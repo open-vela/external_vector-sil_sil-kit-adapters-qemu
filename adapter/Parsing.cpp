@@ -11,6 +11,8 @@ const std::string adapters::ethArg = "--socket-to-ethernet";
 
 const std::string adapters::chardevArg = "--socket-to-chardev";
 
+const std::string adapters::linArg = "--socket-to-lin";
+
 const std::string adapters::regUriArg = "--registry-uri";
 
 const std::string adapters::configurationArg = "--configuration";
@@ -21,7 +23,7 @@ const std::string adapters::participantNameArg = "--name";
 
 const std::string adapters::helpArg = "--help";
 
-const std::array<std::string, 6> switchesWithArgument = {adapters::ethArg, adapters::chardevArg, adapters::regUriArg,
+const std::array<std::string, 7> switchesWithArgument = {adapters::ethArg, adapters::chardevArg, adapters::linArg, adapters::regUriArg,
                                             adapters::logLevelArg, adapters::participantNameArg, adapters::configurationArg};
 
 const std::array<std::string, 1> switchesWithoutArguments = {adapters::helpArg};
@@ -75,7 +77,7 @@ void adapters::print_help(bool userRequested)
            "       ]]\n"
            " ]]\n"
            "\n"
-           "There needs to be at least one "<<chardevArg<<" or "<<ethArg<<" argument. Each socket must be unique.\n"
+           "There needs to be at least one "<<chardevArg<<" or "<<ethArg<<" or "<<linArg<<" argument. Each socket must be unique.\n"
            "SIL Kit-specific CLI arguments will be overwritten by the config file passed by "<<configurationArg<<".\n";
     std::cout << "\n"
                  "Example:\n"
